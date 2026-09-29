@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
+import numpy as np
+
 
 plt.rcParams.update({
     "font.family": "CMU Serif",
@@ -34,13 +36,23 @@ def latex_plot(ax):
 fig, ax = plt.subplots()
 latex_plot(ax)
 
-x = [i for i in range(30, 70, 3)]
-y = [49, 50, 50, 48, 47, 48, 50, 51, 49, 47, 47, 47, 51, 50]
 
-ax.plot(x, y, color='red')
-ax.scatter(x, y, alpha=1)
-ax.set_xlabel(r"$\Delta X$, мм")
-ax.set_ylabel(r"$|E|^2$, мВ")
+X = np.array([0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45,
+              48, 51, 54, 57, 60, 63, 66, 69, 72, 75], dtype=float)
+E_MAX = np.array([54, 51, 51, 53, 54, 54, 52, 50, 52, 54, 54, 53, 50, 51,
+                  54, 54, 53, 51, 50, 52, 54, 53, 50, 51, 52, 54], dtype=float)
+E_MIN = np.array([45, 46, 45, 43, 43, 44, 45, 47, 44, 43, 43, 45, 47, 46,
+                  43, 43, 45, 47, 50, 44, 42, 44, 47, 46, 44, 43], dtype=float)
 
+kappa = np.sqrt(E_MIN / E_MAX)
+gamma_tilde = (1.0 - kappa) / (1.0 + kappa)
+
+x = X
+y = gamma_tilde
+
+ax.scatter(x, y, color='red')
+ax.plot(x, y)
+ax.set_xlabel(r"$x$, мм")
+ax.set_ylabel(r"$\tilde{\Gamma}$")
 
 plt.show()

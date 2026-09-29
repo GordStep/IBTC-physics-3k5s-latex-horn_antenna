@@ -41,4 +41,5 @@ ax.scatter(x, y)
 ax.set_xlabel(r"$x$, мм")
 ax.set_ylabel(r"$I_\text{д}$, мА")
 
+
 plt.show()
